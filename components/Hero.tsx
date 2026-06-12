@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { contact } from "@/data/profile";
 import { useI18n } from "@/lib/LanguageProvider";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
 import TextReveal from "@/components/motion/TextReveal";
 import ScrollIndicator from "@/components/ScrollIndicator";
@@ -22,9 +23,97 @@ const chipVariants = {
   }),
 };
 
+function HeroAvatar({ avatarError, setAvatarError }: {
+  avatarError: boolean;
+  setAvatarError: (v: boolean) => void;
+}) {
+  return (
+    <div className="hud-panel overflow-hidden p-1.5">
+      <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-lg bg-void-deep lg:max-w-none">
+        {avatarError ? (
+          <div className="flex h-full items-center justify-center font-display text-7xl font-bold text-emerald/20">
+            NH
+          </div>
+        ) : (
+          <Image
+            src={contact.avatar}
+            alt={contact.name}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 1024px) 400px, 420px"
+            onError={() => setAvatarError(true)}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-void-deep/90 via-transparent to-transparent" />
+      </div>
+    </div>
+  );
+}
+
 export default function Hero() {
   const { t } = useI18n();
+  const isMobile = useIsMobile();
   const [avatarError, setAvatarError] = useState(false);
+
+  if (isMobile) {
+    return (
+      <section className="relative min-h-[100dvh] border-b border-void-border/60">
+        <div className="shell grid min-h-[100dvh] grid-cols-1 items-center gap-10 py-10">
+          <div className="relative">
+            <HeroAvatar avatarError={avatarError} setAvatarError={setAvatarError} />
+            <div className="mt-4 flex items-center justify-between text-sm text-zinc-500">
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-glow" />
+                <span className="text-emerald-glow">{t.profile.status}</span>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <MapPin size={14} className="text-emerald/60" />
+                {contact.location}
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-medium text-emerald-glow">{t.profile.role}</p>
+            <TextReveal
+              text={contact.name}
+              className="mt-2 font-display text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.08] text-white"
+            />
+            <p className="mt-3 text-sm text-zinc-500">{t.profile.tagline}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {t.profile.typingRoles.map((r) => (
+                <span key={r} className="chip-accent">
+                  {r}
+                </span>
+              ))}
+            </div>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-zinc-400">
+              {t.profile.shortIntro}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <button
+                type="button"
+                onClick={() => smoothScrollToElement("#projects")}
+                className="btn-hud"
+              >
+                {t.ui.hero.viewProjects}
+              </button>
+              <button
+                type="button"
+                onClick={() => smoothScrollToElement("#contact")}
+                className="btn-ghost-hud"
+              >
+                {t.ui.hero.contact}
+              </button>
+              <CvDownloadButton />
+            </div>
+          </div>
+        </div>
+        <ScrollIndicator />
+      </section>
+    );
+  }
 
   return (
     <section className="relative min-h-[100dvh] border-b border-void-border/60">

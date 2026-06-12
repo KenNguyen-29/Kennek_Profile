@@ -1,4 +1,21 @@
-export default function BackgroundEffects() {
+"use client";
+
+import { useIsMobile } from "@/hooks/useIsMobile";
+
+function MobileBackground() {
+  return (
+    <div
+      className="pointer-events-none fixed inset-0 z-0 bg-void-deep"
+      aria-hidden
+      style={{
+        background:
+          "radial-gradient(ellipse 100% 60% at 50% 0%, #0f2918 0%, #050a08 50%, #020604 100%)",
+      }}
+    />
+  );
+}
+
+function DesktopBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
       <div
@@ -10,14 +27,14 @@ export default function BackgroundEffects() {
       />
 
       <div
-        className="absolute -left-[20%] top-[5%] h-[75vh] w-[75vw] animate-mesh rounded-full blur-[110px]"
+        className="absolute -left-[20%] top-[5%] h-[75vh] w-[75vw] animate-mesh rounded-full blur-[110px] will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(16,185,129,0.28) 0%, transparent 65%)",
         }}
       />
       <div
-        className="absolute -right-[15%] top-[30%] h-[65vh] w-[65vw] animate-mesh rounded-full blur-[100px]"
+        className="absolute -right-[15%] top-[30%] h-[65vh] w-[65vw] animate-mesh rounded-full blur-[100px] will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(52,211,153,0.18) 0%, transparent 65%)",
@@ -25,7 +42,7 @@ export default function BackgroundEffects() {
         }}
       />
       <div
-        className="absolute bottom-0 left-[20%] h-[55vh] w-[55vw] animate-mesh rounded-full blur-[90px]"
+        className="absolute bottom-0 left-[20%] h-[55vh] w-[55vw] animate-mesh rounded-full blur-[90px] will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(5,150,105,0.22) 0%, transparent 70%)",
@@ -64,9 +81,6 @@ export default function BackgroundEffects() {
         { top: "12%", left: "8%", delay: "0s", size: 3 },
         { top: "28%", left: "85%", delay: "-3s", size: 2 },
         { top: "55%", left: "15%", delay: "-6s", size: 4 },
-        { top: "70%", left: "72%", delay: "-2s", size: 2 },
-        { top: "40%", left: "45%", delay: "-9s", size: 3 },
-        { top: "85%", left: "35%", delay: "-5s", size: 2 },
       ].map((p, i) => (
         <div
           key={i}
@@ -82,4 +96,10 @@ export default function BackgroundEffects() {
       ))}
     </div>
   );
+}
+
+export default function BackgroundEffects() {
+  const isMobile = useIsMobile();
+
+  return isMobile ? <MobileBackground /> : <DesktopBackground />;
 }

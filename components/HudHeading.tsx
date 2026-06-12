@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { fadeUp, lineGrow, viewport } from "@/lib/motion";
 
 interface HudHeadingProps {
@@ -10,6 +11,25 @@ interface HudHeadingProps {
 }
 
 export default function HudHeading({ code, title, subtitle }: HudHeadingProps) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <div className="min-w-0">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-xs text-emerald-glow/80">[{code}]</span>
+          <div className="h-px flex-1 bg-gradient-to-r from-emerald/40 to-transparent" />
+        </div>
+        <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+          {title}
+        </h2>
+        {subtitle && (
+          <p className="mt-2 max-w-xl text-sm text-zinc-500">{subtitle}</p>
+        )}
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className="min-w-0"

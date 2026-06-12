@@ -2,6 +2,7 @@
 
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { ReactNode } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 interface StaggerGroupProps {
@@ -10,6 +11,12 @@ interface StaggerGroupProps {
 }
 
 export function StaggerGroup({ children, className }: StaggerGroupProps) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -28,6 +35,14 @@ export function StaggerItem({
   className,
   ...props
 }: HTMLMotionProps<"div">) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <div className={className}>{children as ReactNode}</div>
+    );
+  }
+
   return (
     <motion.div variants={fadeUp} className={className} {...props}>
       {children}

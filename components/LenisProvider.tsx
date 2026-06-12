@@ -8,16 +8,16 @@ import SmoothScrollBridge from "./SmoothScrollBridge";
 import "lenis/dist/lenis.css";
 
 const lenisOptions = {
-  lerp: 0.05,
-  duration: 2.5,
+  lerp: 0.1,
+  duration: 1.15,
   smoothWheel: true,
   wheelMultiplier: 1,
-  touchMultiplier: 2.15,
+  touchMultiplier: 1,
   autoRaf: true,
   anchors: true,
 } as const;
 
-function CvRouteReset({ children }: { children: React.ReactNode }) {
+function NativeScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setLenisInstance(undefined);
   }, []);
@@ -31,19 +31,22 @@ export default function LenisProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    setReduceMotion(
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-  }, []);
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const isMobile = window.matchMedia(
+      "(max-width: 768px), (pointer: coarse)"
+    ).matches;
+    const isCv = pathname === "/cv";
 
-  const isCv = pathname === "/cv";
-  const enabled = !isCv && !reduceMotion;
+    setEnabled(!isCv && !reduceMotion && !isMobile);
+  }, [pathname]);
 
   if (!enabled) {
-    return <CvRouteReset>{children}</CvRouteReset>;
+    return <NativeScroll>{children}</NativeScroll>;
   }
 
   return (

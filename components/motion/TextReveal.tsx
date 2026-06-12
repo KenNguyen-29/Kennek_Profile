@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { easeOut } from "@/lib/motion";
 
 interface TextRevealProps {
@@ -16,6 +17,12 @@ export default function TextReveal({
   as: Tag = "h1",
   delay = 0,
 }: TextRevealProps) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <Tag className={className}>{text}</Tag>;
+  }
+
   const words = text.split(" ");
 
   return (

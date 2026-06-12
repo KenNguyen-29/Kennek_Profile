@@ -1,6 +1,8 @@
 "use client";
 
 import { motion, type HTMLMotionProps } from "framer-motion";
+import { ReactNode } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { fadeUp, viewport } from "@/lib/motion";
 
 export default function FadeIn({
@@ -9,6 +11,12 @@ export default function FadeIn({
   delay = 0,
   ...props
 }: HTMLMotionProps<"div"> & { delay?: number }) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <div className={className}>{children as ReactNode}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"

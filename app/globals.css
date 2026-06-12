@@ -153,6 +153,30 @@
   animation: grid-shift 24s linear infinite;
 }
 
+@media (max-width: 768px) {
+  .zone {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
+  }
+
+  .animate-marquee {
+    animation-duration: 55s;
+  }
+
+  .marquee-track {
+    backdrop-filter: none;
+  }
+
+  .hud-panel {
+    box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.12);
+  }
+
+  .hud-panel:hover {
+    box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.12);
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-mesh,
   .animate-pulse-dot,

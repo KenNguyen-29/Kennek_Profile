@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { dockIcons } from "@/data/profile";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { useI18n } from "@/lib/LanguageProvider";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
 import { springSoft } from "@/lib/motion";
@@ -27,6 +28,7 @@ const icons: Record<string, LucideIcon> = {
 
 export default function DockNav() {
   const { t } = useI18n();
+  const isMobile = useIsMobile();
   const [active, setActive] = useState("");
 
   useEffect(() => {
@@ -44,25 +46,44 @@ export default function DockNav() {
     return () => obs.disconnect();
   }, [t.ui.dock]);
 
+  const Nav = isMobile ? "nav" : motion.nav;
+  const navProps = isMobile
+    ? {}
+    : {
+        initial: { y: 80, opacity: 0 },
+        animate: { y: 0, opacity: 1 },
+        transition: { delay: 1.1, ...springSoft },
+      };
+
   return (
-    <motion.nav
-      initial={{ y: 80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 1.1, ...springSoft }}
+    <Nav
+      {...navProps}
       className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 sm:bottom-6"
       aria-label="Section navigation"
     >
-      <div className="flex items-center justify-between gap-1 rounded-2xl border border-void-border/80 bg-void-panel/90 px-2 py-2 shadow-dock backdrop-blur-xl sm:gap-2 sm:px-3">
+      <div
+        className={`flex items-center justify-between gap-1 rounded-2xl border border-void-border/80 bg-void-panel/95 px-2 py-2 shadow-dock sm:gap-2 sm:px-3 ${
+          isMobile ? "" : "backdrop-blur-xl"
+        }`}
+      >
         {t.ui.dock.map((item) => {
           const iconKey = dockIcons[item.id as keyof typeof dockIcons];
           const Icon = icons[iconKey] ?? User;
           const isActive = active === item.href;
+          const Btn = isMobile ? "button" : motion.button;
+          const btnProps = isMobile
+            ? {}
+            : {
+                whileHover: { y: -3, scale: 1.05 },
+                whileTap: { scale: 0.95 },
+              };
+
           return (
-            <motion.button
+            <Btn
               key={item.id}
+              type="button"
               onClick={() => smoothScrollToElement(item.href)}
-              whileHover={{ y: -3, scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              {...btnProps}
               className={`relative flex min-h-[44px] flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 transition-colors sm:px-2 ${
                 isActive
                   ? "text-emerald-glow"
@@ -72,11 +93,7 @@ export default function DockNav() {
               aria-current={isActive ? "true" : undefined}
             >
               {isActive && (
-                <motion.span
-                  layoutId="dock-pill"
-                  className="absolute inset-0 rounded-xl bg-emerald/15"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
+                <span className="absolute inset-0 rounded-xl bg-emerald/15" />
               )}
               <Icon
                 size={18}
@@ -86,10 +103,10 @@ export default function DockNav() {
               <span className="relative z-10 hidden text-[10px] sm:block">
                 {item.label}
               </span>
-            </motion.button>
+            </Btn>
           );
         })}
       </div>
-    </motion.nav>
+    </Nav>
   );
 }
