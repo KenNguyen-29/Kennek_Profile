@@ -9,7 +9,7 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
-import { strengths } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import { StaggerGroup, StaggerItem } from "./motion/Stagger";
@@ -25,11 +25,16 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export default function Strengths() {
+  const { t } = useI18n();
+
   return (
     <SectionReveal id="strengths">
-      <HudHeading code="STRENGTH" title="Điểm mạnh" />
+      <HudHeading
+        code={t.ui.sections.strengths.code}
+        title={t.ui.sections.strengths.title}
+      />
       <StaggerGroup className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {strengths.map((item) => {
+        {t.strengths.map((item) => {
           const Icon = iconMap[item.icon] ?? Zap;
           return (
             <StaggerItem key={item.id}>

@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
-import { commandLinks } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
 import { easeOut, springSoft } from "@/lib/motion";
 
 export default function CommandPalette() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -23,7 +24,7 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const filtered = commandLinks.filter((l) =>
+  const filtered = t.ui.commandLinks.filter((l) =>
     l.label.toLowerCase().includes(query.toLowerCase())
   );
 
@@ -43,7 +44,7 @@ export default function CommandPalette() {
         className="fixed right-4 top-4 z-50 hidden items-center gap-2 rounded-lg border border-void-border/80 bg-void-panel/80 px-3 py-2 text-xs text-zinc-500 backdrop-blur-md transition-colors hover:border-emerald/30 hover:text-emerald-glow sm:flex"
       >
         <Search size={14} />
-        <span>Jump to</span>
+        <span>{t.ui.palette.jumpTo}</span>
         <kbd className="rounded border border-void-border px-1.5 py-0.5 text-[10px] text-zinc-600">
           ⌘K
         </kbd>
@@ -73,7 +74,7 @@ export default function CommandPalette() {
                     autoFocus
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Jump to section..."
+                    placeholder={t.ui.palette.placeholder}
                     className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-zinc-600"
                   />
                 </div>
@@ -94,7 +95,9 @@ export default function CommandPalette() {
                     </motion.li>
                   ))}
                   {filtered.length === 0 && (
-                    <li className="px-4 py-3 text-sm text-zinc-600">No match</li>
+                    <li className="px-4 py-3 text-sm text-zinc-600">
+                      {t.ui.palette.noMatch}
+                    </li>
                   )}
                 </ul>
               </div>

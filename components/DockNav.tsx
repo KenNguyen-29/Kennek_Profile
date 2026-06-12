@@ -11,7 +11,8 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
-import { dockNav } from "@/data/profile";
+import { dockIcons } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
 import { springSoft } from "@/lib/motion";
 
@@ -25,10 +26,11 @@ const icons: Record<string, LucideIcon> = {
 };
 
 export default function DockNav() {
+  const { t } = useI18n();
   const [active, setActive] = useState("");
 
   useEffect(() => {
-    const sections = dockNav.map((d) => document.querySelector(d.href));
+    const sections = t.ui.dock.map((d) => document.querySelector(d.href));
     const obs = new IntersectionObserver(
       (entries) => {
         const top = entries
@@ -40,7 +42,7 @@ export default function DockNav() {
     );
     sections.forEach((s) => s && obs.observe(s));
     return () => obs.disconnect();
-  }, []);
+  }, [t.ui.dock]);
 
   return (
     <motion.nav
@@ -51,8 +53,9 @@ export default function DockNav() {
       aria-label="Section navigation"
     >
       <div className="flex items-center justify-between gap-1 rounded-2xl border border-void-border/80 bg-void-panel/90 px-2 py-2 shadow-dock backdrop-blur-xl sm:gap-2 sm:px-3">
-        {dockNav.map((item) => {
-          const Icon = icons[item.icon] ?? User;
+        {t.ui.dock.map((item) => {
+          const iconKey = dockIcons[item.id as keyof typeof dockIcons];
+          const Icon = icons[iconKey] ?? User;
           const isActive = active === item.href;
           return (
             <motion.button

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Outfit } from "next/font/google";
+import Providers from "./providers";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -35,7 +36,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${outfit.variable} ${ibmPlex.variable} min-w-0 bg-void font-sans text-zinc-300`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

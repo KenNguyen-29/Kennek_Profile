@@ -1,17 +1,22 @@
 "use client";
 
-import { experiences } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import { StaggerGroup, StaggerItem } from "./motion/Stagger";
 import HoverCard from "./motion/HoverCard";
 
 export default function Experience() {
+  const { t } = useI18n();
+
   return (
     <SectionReveal id="experience">
-      <HudHeading code="WORK" title="Kinh nghiệm" />
+      <HudHeading
+        code={t.ui.sections.experience.code}
+        title={t.ui.sections.experience.title}
+      />
       <StaggerGroup className="mt-8 space-y-3">
-        {experiences.map((exp) => (
+        {t.experiences.map((exp) => (
           <StaggerItem key={exp.id}>
             <HoverCard className="hud-panel p-5 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">

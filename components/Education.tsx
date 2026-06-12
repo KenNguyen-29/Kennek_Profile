@@ -1,17 +1,22 @@
 "use client";
 
-import { education } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import { StaggerGroup, StaggerItem } from "./motion/Stagger";
 import HoverCard from "./motion/HoverCard";
 
 export default function Education() {
+  const { t } = useI18n();
+
   return (
     <SectionReveal id="education">
-      <HudHeading code="EDU" title="Học vấn" />
+      <HudHeading
+        code={t.ui.sections.education.code}
+        title={t.ui.sections.education.title}
+      />
       <StaggerGroup className="mt-8 space-y-3">
-        {education.map((edu) => (
+        {t.education.map((edu) => (
           <StaggerItem key={edu.id}>
             <HoverCard className="hud-panel p-5 sm:p-6">
               <span className="chip">{edu.period}</span>

@@ -2,13 +2,15 @@
 
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
-import { profile } from "@/data/profile";
+import { contact } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import FadeIn from "./motion/FadeIn";
 import { springSoft } from "@/lib/motion";
 
 export default function Contact() {
+  const { t } = useI18n();
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -20,22 +22,24 @@ export default function Contact() {
   const inputClass =
     "w-full min-h-[44px] rounded-lg border border-void-border bg-void-deep px-4 py-3 text-sm text-zinc-300 placeholder:text-zinc-600 outline-none transition-all duration-300 focus:border-emerald/40 focus:shadow-[0_0_0_3px_rgba(16,185,129,0.08)]";
 
+  const c = t.ui.contact;
+
   return (
     <SectionReveal id="contact">
       <HudHeading
-        code="CONTACT"
-        title="Liên hệ"
-        subtitle="Sẵn sàng cho cơ hội, hợp tác và trao đổi."
+        code={t.ui.sections.contact.code}
+        title={t.ui.sections.contact.title}
+        subtitle={t.ui.sections.contact.subtitle}
       />
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <FadeIn className="hud-panel space-y-5 p-5 sm:p-6">
           {[
-            { label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-            { label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
-            { label: "Location", value: profile.location },
-            ...(profile.github
-              ? [{ label: "GitHub", value: profile.github.replace("https://", ""), href: profile.github }]
+            { label: c.email, value: contact.email, href: `mailto:${contact.email}` },
+            { label: c.phone, value: contact.phone, href: `tel:${contact.phone}` },
+            { label: c.location, value: contact.location },
+            ...(contact.github
+              ? [{ label: c.github, value: contact.github.replace("https://", ""), href: contact.github }]
               : []),
           ].map((item) => (
             <div key={item.label}>
@@ -45,8 +49,8 @@ export default function Contact() {
               {item.href ? (
                 <a
                   href={item.href}
-                  target={item.label === "GitHub" ? "_blank" : undefined}
-                  rel={item.label === "GitHub" ? "noopener noreferrer" : undefined}
+                  target={item.label === c.github ? "_blank" : undefined}
+                  rel={item.label === c.github ? "noopener noreferrer" : undefined}
                   className="mt-1 block text-sm text-white transition-colors hover:text-emerald-glow"
                 >
                   {item.value}
@@ -60,13 +64,13 @@ export default function Contact() {
 
         <FadeIn delay={0.1}>
           <form onSubmit={handleSubmit} className="hud-panel space-y-4 p-5 sm:p-6">
-            <input type="text" required placeholder="Họ tên" className={inputClass} />
-            <input type="email" required placeholder="Email" className={inputClass} />
-            <input type="text" required placeholder="Tiêu đề" className={inputClass} />
+            <input type="text" required placeholder={c.namePh} className={inputClass} />
+            <input type="email" required placeholder={c.emailPh} className={inputClass} />
+            <input type="text" required placeholder={c.subjectPh} className={inputClass} />
             <textarea
               required
               rows={4}
-              placeholder="Nội dung"
+              placeholder={c.messagePh}
               className={`${inputClass} min-h-[120px] resize-none`}
             />
             <motion.button
@@ -76,11 +80,9 @@ export default function Contact() {
               transition={springSoft}
               className="btn-hud w-full"
             >
-              {submitted ? "Đã gửi ✓" : "Gửi tin nhắn"}
+              {submitted ? c.submitted : c.submit}
             </motion.button>
-            <p className="text-xs text-zinc-600">
-              Form demo — liên hệ trực tiếp qua email để phản hồi nhanh hơn.
-            </p>
+            <p className="text-xs text-zinc-600">{c.note}</p>
           </form>
         </FadeIn>
       </div>

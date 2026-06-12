@@ -1,21 +1,23 @@
 "use client";
 
-import { favoriteGames, interests } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import { StaggerGroup, StaggerItem } from "./motion/Stagger";
 import HoverCard from "./motion/HoverCard";
 
 export default function BeyondCoding() {
+  const { t } = useI18n();
+
   return (
     <SectionReveal id="beyond-coding">
       <HudHeading
-        code="LIFE"
-        title="Ngoài coding"
-        subtitle="Sở thích & đam mê cá nhân."
+        code={t.ui.sections.beyond.code}
+        title={t.ui.sections.beyond.title}
+        subtitle={t.ui.sections.beyond.subtitle}
       />
       <StaggerGroup className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {interests.map((item) => (
+        {t.interests.map((item) => (
           <StaggerItem key={item.id}>
             <HoverCard className="hud-panel h-full p-5">
               <span className="inline-block text-2xl transition-transform duration-300 hover:scale-110">
@@ -35,11 +37,11 @@ export default function BeyondCoding() {
       <StaggerGroup className="mt-8">
         <StaggerItem>
           <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-            Game yêu thích
+            {t.ui.sections.beyond.games}
           </p>
         </StaggerItem>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {favoriteGames.map((game) => (
+          {t.favoriteGames.map((game) => (
             <StaggerItem key={game.id}>
               <HoverCard className="hud-panel p-5 sm:p-6">
                 <h3 className="font-display text-lg font-semibold text-white">

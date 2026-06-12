@@ -1,14 +1,15 @@
 "use client";
 
-import { profile, skillGroups } from "@/data/profile";
-
-const items = [
-  ...profile.typingRoles,
-  ...skillGroups.flatMap((g) => g.skills).slice(0, 12),
-  profile.tagline,
-];
+import { useI18n } from "@/lib/LanguageProvider";
 
 export default function Marquee() {
+  const { t } = useI18n();
+
+  const items = [
+    ...t.profile.typingRoles,
+    ...t.skillGroups.flatMap((g) => g.skills).slice(0, 12),
+    t.profile.tagline,
+  ];
   const track = [...items, ...items];
 
   return (

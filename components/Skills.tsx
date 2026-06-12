@@ -1,21 +1,23 @@
 "use client";
 
-import { skillGroups } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import { StaggerGroup, StaggerItem } from "./motion/Stagger";
 import HoverCard from "./motion/HoverCard";
 
 export default function Skills() {
+  const { t } = useI18n();
+
   return (
     <SectionReveal id="skills">
       <HudHeading
-        code="SKILLS"
-        title="Kỹ năng & công nghệ"
-        subtitle="Stack công cụ thường dùng."
+        code={t.ui.sections.skills.code}
+        title={t.ui.sections.skills.title}
+        subtitle={t.ui.sections.skills.subtitle}
       />
       <StaggerGroup className="mt-8 space-y-3">
-        {skillGroups.map((group) => (
+        {t.skillGroups.map((group) => (
           <StaggerItem key={group.category}>
             <HoverCard className="hud-panel p-4 sm:p-5">
               <h3 className="text-xs font-medium uppercase tracking-wider text-emerald-glow">

@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { profile } from "@/data/profile";
+import { contact } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import { fadeUp, viewport } from "@/lib/motion";
 
 export default function Footer() {
+  const { t } = useI18n();
   const year = new Date().getFullYear();
 
   return (
@@ -17,9 +19,9 @@ export default function Footer() {
     >
       <div className="shell flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <p className="text-sm text-zinc-600">
-          © {year} {profile.name}
+          © {year} {contact.name}
         </p>
-        <p className="text-sm text-zinc-600">Built with Next.js</p>
+        <p className="text-sm text-zinc-600">{t.ui.footer.builtWith}</p>
       </div>
     </motion.footer>
   );

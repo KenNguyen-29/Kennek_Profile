@@ -1,16 +1,21 @@
 "use client";
 
-import { awards } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
 import FadeIn from "./motion/FadeIn";
 import HoverCard from "./motion/HoverCard";
 
 export default function Award() {
+  const { t } = useI18n();
+
   return (
     <SectionReveal id="awards">
-      <HudHeading code="AWARD" title="Giải thưởng" />
-      {awards.map((award) => (
+      <HudHeading
+        code={t.ui.sections.award.code}
+        title={t.ui.sections.award.title}
+      />
+      {t.awards.map((award) => (
         <FadeIn key={award.id} className="mt-8">
           <HoverCard className="hud-panel p-6 sm:p-8">
             <div className="flex items-center gap-3">

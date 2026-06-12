@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Download, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-import { profile } from "@/data/profile";
+import { contact } from "@/data/profile";
+import { useI18n } from "@/lib/LanguageProvider";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
 import TextReveal from "@/components/motion/TextReveal";
 import ScrollIndicator from "@/components/ScrollIndicator";
@@ -21,6 +22,7 @@ const chipVariants = {
 };
 
 export default function Hero() {
+  const { t } = useI18n();
   const [avatarError, setAvatarError] = useState(false);
 
   return (
@@ -47,8 +49,8 @@ export default function Hero() {
                 </div>
               ) : (
                 <Image
-                  src={profile.avatar}
-                  alt={profile.name}
+                  src={contact.avatar}
+                  alt={contact.name}
                   fill
                   className="object-cover"
                   priority
@@ -67,11 +69,11 @@ export default function Hero() {
           >
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 animate-pulse-dot rounded-full bg-emerald-glow" />
-              <span className="text-emerald-glow">{profile.status}</span>
+              <span className="text-emerald-glow">{t.profile.status}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <MapPin size={14} className="text-emerald/60" />
-              {profile.location}
+              {contact.location}
             </span>
           </motion.div>
         </motion.div>
@@ -88,11 +90,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.6, ease: easeOut }}
           >
-            {profile.role}
+            {t.profile.role}
           </motion.p>
 
           <TextReveal
-            text={profile.name}
+            text={contact.name}
             className="mt-2 font-display text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.08] text-white"
             delay={0.25}
           />
@@ -103,11 +105,11 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.75, duration: 0.6 }}
           >
-            {profile.tagline}
+            {t.profile.tagline}
           </motion.p>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            {profile.typingRoles.map((r, i) => (
+            {t.profile.typingRoles.map((r, i) => (
               <motion.span
                 key={r}
                 custom={i}
@@ -128,7 +130,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.7, ease: easeOut }}
           >
-            {profile.shortIntro}
+            {t.profile.shortIntro}
           </motion.p>
 
           <motion.div
@@ -145,7 +147,7 @@ export default function Hero() {
               }
               className="btn-hud"
             >
-              Xem dự án
+              {t.ui.hero.viewProjects}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.03, y: -2 }}
@@ -155,18 +157,8 @@ export default function Hero() {
               }
               className="btn-ghost-hud"
             >
-              Liên hệ
+              {t.ui.hero.contact}
             </motion.button>
-            <motion.a
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              href={profile.cvDownloadUrl}
-              className="btn-ghost-hud"
-              download
-            >
-              <Download size={16} />
-              Tải CV
-            </motion.a>
           </motion.div>
         </motion.div>
       </div>
