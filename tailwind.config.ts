@@ -10,21 +10,23 @@ const config: Config = {
     extend: {
       colors: {
         void: {
-          DEFAULT: "#08080f",
-          deep: "#050508",
-          panel: "#0f0f18",
-          border: "#1e1e2e",
+          DEFAULT: "#050a08",
+          deep: "#020604",
+          panel: "#0a120e",
+          border: "#1a2e22",
         },
-        violet: {
-          glow: "#a78bfa",
-          DEFAULT: "#7c3aed",
+        emerald: {
+          glow: "#6ee7b7",
+          DEFAULT: "#10b981",
+          dim: "#059669",
         },
-        coral: {
-          DEFAULT: "#f97316",
-          soft: "#fb7185",
+        mint: {
+          DEFAULT: "#34d399",
+          soft: "#a7f3d0",
         },
-        hud: {
-          cyan: "#22d3ee",
+        forest: {
+          DEFAULT: "#14532d",
+          light: "#166534",
         },
       },
       fontFamily: {
@@ -36,8 +38,8 @@ const config: Config = {
         shell: "72rem",
       },
       boxShadow: {
-        hud: "0 0 0 1px rgba(167,139,250,0.15), 0 8px 32px rgba(0,0,0,0.5)",
-        dock: "0 -4px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)",
+        hud: "0 0 0 1px rgba(16,185,129,0.12), 0 8px 32px rgba(0,0,0,0.45)",
+        dock: "0 -4px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(110,231,183,0.08)",
       },
     },
   },

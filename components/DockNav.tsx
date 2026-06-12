@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   Cpu,
   Crosshair,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { dockNav } from "@/data/profile";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
+import { springSoft } from "@/lib/motion";
 
 const icons: Record<string, LucideIcon> = {
   User,
@@ -41,36 +43,52 @@ export default function DockNav() {
   }, []);
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: 80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 1.1, ...springSoft }}
       className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 sm:bottom-6"
       aria-label="Section navigation"
     >
-      <div className="flex items-center justify-between gap-1 border border-void-border bg-void-panel/90 px-2 py-2 shadow-dock backdrop-blur-xl sm:gap-2 sm:px-3">
+      <div className="flex items-center justify-between gap-1 rounded-2xl border border-void-border/80 bg-void-panel/90 px-2 py-2 shadow-dock backdrop-blur-xl sm:gap-2 sm:px-3">
         {dockNav.map((item) => {
           const Icon = icons[item.icon] ?? User;
           const isActive = active === item.href;
           return (
-            <button
+            <motion.button
               key={item.id}
               onClick={() =>
                 smoothScrollToElement(item.href, { duration: 900, offset: 80 })
               }
-              className={`flex min-h-[44px] flex-1 flex-col items-center justify-center gap-0.5 rounded-sm px-1 transition-all sm:px-2 ${
+              whileHover={{ y: -3, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative flex min-h-[44px] flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 transition-colors sm:px-2 ${
                 isActive
-                  ? "bg-violet/20 text-violet-glow"
-                  : "text-zinc-500 hover:bg-white/5 hover:text-zinc-300"
+                  ? "text-emerald-glow"
+                  : "text-zinc-500 hover:text-zinc-300"
               }`}
               aria-label={item.label}
               aria-current={isActive ? "true" : undefined}
             >
-              <Icon size={18} strokeWidth={isActive ? 2.5 : 1.5} />
-              <span className="hidden font-mono text-[9px] uppercase tracking-wider sm:block">
+              {isActive && (
+                <motion.span
+                  layoutId="dock-pill"
+                  className="absolute inset-0 rounded-xl bg-emerald/15"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Icon
+                size={18}
+                strokeWidth={isActive ? 2.5 : 1.5}
+                className="relative z-10"
+              />
+              <span className="relative z-10 hidden text-[10px] sm:block">
                 {item.label}
               </span>
-            </button>
+            </motion.button>
           );
         })}
       </div>
-    </nav>
+    </motion.nav>
   );
 }

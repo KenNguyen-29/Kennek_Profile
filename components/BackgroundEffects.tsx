@@ -1,38 +1,85 @@
 export default function BackgroundEffects() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
-      <div className="absolute inset-0 bg-void-deep" />
       <div
-        className="absolute -left-1/4 top-0 h-[70vh] w-[70vw] animate-mesh rounded-full opacity-40 blur-[100px]"
+        className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%)",
+            "radial-gradient(ellipse 120% 80% at 50% -10%, #0f2918 0%, #050a08 45%, #020604 100%)",
+        }}
+      />
+
+      <div
+        className="absolute -left-[20%] top-[5%] h-[75vh] w-[75vw] animate-mesh rounded-full blur-[110px]"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(16,185,129,0.28) 0%, transparent 65%)",
         }}
       />
       <div
-        className="absolute -right-1/4 bottom-0 h-[60vh] w-[60vw] animate-mesh rounded-full opacity-30 blur-[100px]"
+        className="absolute -right-[15%] top-[30%] h-[65vh] w-[65vw] animate-mesh rounded-full blur-[100px]"
         style={{
           background:
-            "radial-gradient(circle, rgba(249,115,22,0.2) 0%, transparent 70%)",
-          animationDelay: "-9s",
+            "radial-gradient(circle, rgba(52,211,153,0.18) 0%, transparent 65%)",
+          animationDelay: "-7s",
         }}
       />
       <div
-        className="absolute left-1/2 top-1/2 h-[50vh] w-[50vw] -translate-x-1/2 -translate-y-1/2 animate-mesh rounded-full opacity-20 blur-[80px]"
+        className="absolute bottom-0 left-[20%] h-[55vh] w-[55vw] animate-mesh rounded-full blur-[90px]"
         style={{
           background:
-            "radial-gradient(circle, rgba(34,211,238,0.15) 0%, transparent 70%)",
-          animationDelay: "-4s",
+            "radial-gradient(circle, rgba(5,150,105,0.22) 0%, transparent 70%)",
+          animationDelay: "-14s",
         }}
       />
+
       <div
-        className="absolute inset-0 opacity-[0.15]"
+        className="animate-grid-shift absolute inset-0 opacity-[0.22]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
+            "linear-gradient(rgba(52,211,153,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.06) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage:
+            "radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%)",
         }}
       />
+
+      <div
+        className="absolute inset-0 opacity-[0.35] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`,
+          backgroundSize: "128px 128px",
+        }}
+      />
+
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 40%, rgba(2,6,4,0.75) 100%)",
+        }}
+      />
+
+      {[
+        { top: "12%", left: "8%", delay: "0s", size: 3 },
+        { top: "28%", left: "85%", delay: "-3s", size: 2 },
+        { top: "55%", left: "15%", delay: "-6s", size: 4 },
+        { top: "70%", left: "72%", delay: "-2s", size: 2 },
+        { top: "40%", left: "45%", delay: "-9s", size: 3 },
+        { top: "85%", left: "35%", delay: "-5s", size: 2 },
+      ].map((p, i) => (
+        <div
+          key={i}
+          className="animate-float absolute rounded-full bg-emerald-glow/40"
+          style={{
+            top: p.top,
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            animationDelay: p.delay,
+          }}
+        />
+      ))}
     </div>
   );
 }

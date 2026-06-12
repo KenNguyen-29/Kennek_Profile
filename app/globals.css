@@ -19,7 +19,7 @@
   }
 
   ::selection {
-    @apply bg-violet text-white;
+    @apply bg-emerald text-void-deep;
   }
 }
 
@@ -33,60 +33,56 @@
   }
 
   .hud-panel {
-    @apply relative border border-void-border bg-void-panel/80 shadow-hud backdrop-blur-md;
+    @apply relative rounded-xl border border-void-border/80 bg-void-panel/70 shadow-hud backdrop-blur-md;
+    transition:
+      border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.4s ease;
   }
 
-  .hud-panel::before,
-  .hud-panel::after {
-    content: "";
-    @apply pointer-events-none absolute h-3 w-3 border-violet-glow/40;
-  }
-
-  .hud-panel::before {
-    @apply left-0 top-0 border-l-2 border-t-2;
-  }
-
-  .hud-panel::after {
-    @apply bottom-0 right-0 border-b-2 border-r-2;
+  .hud-panel:hover {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.1),
+      0 12px 40px rgba(0, 0, 0, 0.35);
   }
 
   .btn-hud {
-    @apply inline-flex min-h-[44px] w-full items-center justify-center gap-2 border border-violet/50 bg-violet/10 px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-widest text-violet-glow transition-all hover:border-violet-glow hover:bg-violet/20 hover:shadow-[0_0_20px_rgba(124,58,237,0.25)] sm:w-auto;
+    @apply inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-emerald/40 bg-emerald/10 px-5 py-2.5 text-sm font-medium text-emerald-glow transition-all hover:border-emerald-glow/60 hover:bg-emerald/15 hover:shadow-[0_0_24px_rgba(16,185,129,0.18)] sm:w-auto;
   }
 
   .btn-ghost-hud {
-    @apply inline-flex min-h-[44px] w-full items-center justify-center gap-2 border border-void-border bg-transparent px-5 py-2.5 font-mono text-xs uppercase tracking-widest text-zinc-500 transition-all hover:border-hud-cyan/40 hover:text-hud-cyan sm:w-auto;
+    @apply inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-void-border bg-white/[0.02] px-5 py-2.5 text-sm text-zinc-400 transition-all hover:border-emerald/30 hover:text-emerald-glow sm:w-auto;
   }
 
   .chip {
-    @apply inline-block border border-void-border bg-void-deep px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-zinc-500;
+    @apply inline-block rounded-md border border-void-border bg-void-deep/80 px-2.5 py-1 text-xs text-zinc-400;
   }
 
-  .chip-violet {
-    @apply chip border-violet/30 text-violet-glow;
+  .chip-accent {
+    @apply chip border-emerald/25 bg-emerald/5 text-emerald-glow;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050508;
+  background: #020604;
 }
 ::-webkit-scrollbar-thumb {
-  background: #7c3aed;
-  border-radius: 0;
+  background: #059669;
+  border-radius: 3px;
 }
 
 @keyframes mesh-drift {
   0%,
   100% {
-    opacity: 0.5;
+    opacity: 0.55;
     transform: scale(1) translate(0, 0);
   }
   50% {
-    opacity: 0.7;
-    transform: scale(1.05) translate(2%, -1%);
+    opacity: 0.85;
+    transform: scale(1.08) translate(2%, -2%);
   }
 }
 
@@ -94,23 +90,70 @@
   0%,
   100% {
     opacity: 1;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.5;
+    box-shadow: 0 0 2px rgba(52, 211, 153, 0.2);
+  }
+}
+
+@keyframes float-particle {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-20px) translateX(8px);
+    opacity: 0.45;
   }
 }
 
 .animate-mesh {
-  animation: mesh-drift 18s ease-in-out infinite;
+  animation: mesh-drift 20s ease-in-out infinite;
 }
 
 .animate-pulse-dot {
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float-particle 12s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes grid-shift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 48px 48px;
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-grid-shift {
+  animation: grid-shift 24s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-mesh,
-  .animate-pulse-dot {
+  .animate-pulse-dot,
+  .animate-float,
+  .animate-marquee,
+  .animate-grid-shift {
     animation: none;
   }
 }

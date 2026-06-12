@@ -30,8 +30,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="vi">
+    <html lang="vi" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${outfit.variable} ${ibmPlex.variable} min-w-0 bg-void font-sans text-zinc-300`}
       >
         {children}

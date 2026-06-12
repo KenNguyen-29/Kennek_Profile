@@ -1,6 +1,7 @@
 import BackgroundEffects from "@/components/BackgroundEffects";
 import CommandPalette from "@/components/CommandPalette";
 import DockNav from "@/components/DockNav";
+import Marquee from "@/components/Marquee";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Strengths from "@/components/Strengths";
@@ -23,6 +24,7 @@ export default function Home() {
       <div className="relative z-10">
         <main className="min-w-0">
           <Hero />
+          <Marquee />
           <About />
           <Strengths />
           <Skills />

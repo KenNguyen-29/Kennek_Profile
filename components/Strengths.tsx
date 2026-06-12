@@ -12,6 +12,8 @@ import {
 import { strengths } from "@/data/profile";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
+import { StaggerGroup, StaggerItem } from "./motion/Stagger";
+import HoverCard from "./motion/HoverCard";
 
 const iconMap: Record<string, LucideIcon> = {
   Zap,
@@ -25,30 +27,29 @@ const iconMap: Record<string, LucideIcon> = {
 export default function Strengths() {
   return (
     <SectionReveal id="strengths">
-      <HudHeading code="PASS" title="Passive Abilities" />
-      <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <HudHeading code="STRENGTH" title="Điểm mạnh" />
+      <StaggerGroup className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {strengths.map((item) => {
           const Icon = iconMap[item.icon] ?? Zap;
           return (
-            <div
-              key={item.id}
-              className="hud-panel group p-5 transition-colors hover:border-violet/40"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center border border-violet/30 bg-violet/10">
-                  <Icon size={14} className="text-violet-glow" />
+            <StaggerItem key={item.id}>
+              <HoverCard className="hud-panel group h-full p-5 hover:border-emerald/25">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-emerald/20 bg-emerald/10 transition-transform duration-300 group-hover:scale-110">
+                    <Icon size={16} className="text-emerald-glow" />
+                  </div>
+                  <h3 className="font-display text-sm font-semibold text-white">
+                    {item.title}
+                  </h3>
                 </div>
-                <h3 className="font-display text-sm font-semibold text-white">
-                  {item.title}
-                </h3>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-zinc-500">
-                {item.description}
-              </p>
-            </div>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+                  {item.description}
+                </p>
+              </HoverCard>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerGroup>
     </SectionReveal>
   );
 }

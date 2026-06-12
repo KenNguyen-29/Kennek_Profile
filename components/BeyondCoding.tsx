@@ -3,58 +3,54 @@
 import { favoriteGames, interests } from "@/data/profile";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
-
-const tierColors: Record<"S" | "SS", string> = {
-  S: "border-hud-cyan/40 text-hud-cyan",
-  SS: "border-coral/40 text-coral",
-};
+import { StaggerGroup, StaggerItem } from "./motion/Stagger";
+import HoverCard from "./motion/HoverCard";
 
 export default function BeyondCoding() {
   return (
     <SectionReveal id="beyond-coding">
       <HudHeading
-        code="SQ"
-        title="Side Quests"
-        subtitle="Life outside the main storyline."
+        code="LIFE"
+        title="Ngoài coding"
+        subtitle="Sở thích & đam mê cá nhân."
       />
-      <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <StaggerGroup className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {interests.map((item) => (
-          <div key={item.id} className="hud-panel p-5">
-            <span className="text-2xl">{item.emoji}</span>
-            <h3 className="mt-3 font-display text-sm font-semibold text-white">
-              {item.label}
-            </h3>
-            <p className="mt-2 text-xs leading-relaxed text-zinc-500">
-              {item.description}
-            </p>
-          </div>
+          <StaggerItem key={item.id}>
+            <HoverCard className="hud-panel h-full p-5">
+              <span className="inline-block text-2xl transition-transform duration-300 hover:scale-110">
+                {item.emoji}
+              </span>
+              <h3 className="mt-3 font-display text-sm font-semibold text-white">
+                {item.label}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+                {item.description}
+              </p>
+            </HoverCard>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGroup>
 
-      <div className="mt-8">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-600">
-          Ranked games
-        </p>
+      <StaggerGroup className="mt-8">
+        <StaggerItem>
+          <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+            Game yêu thích
+          </p>
+        </StaggerItem>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {favoriteGames.map((game) => (
-            <div key={game.id} className="hud-panel p-5 sm:p-6">
-              <div className="flex items-center justify-between">
+            <StaggerItem key={game.id}>
+              <HoverCard className="hud-panel p-5 sm:p-6">
                 <h3 className="font-display text-lg font-semibold text-white">
                   {game.name}
                 </h3>
-                <span
-                  className={`chip ${tierColors[game.tier as keyof typeof tierColors]}`}
-                >
-                  Tier {game.tier}
-                </span>
-              </div>
-              <p className="mt-2 font-mono text-xs text-violet-glow">
-                {game.rank}
-              </p>
-            </div>
+                <p className="mt-2 text-sm text-emerald-glow">{game.rank}</p>
+              </HoverCard>
+            </StaggerItem>
           ))}
         </div>
-      </div>
+      </StaggerGroup>
     </SectionReveal>
   );
 }

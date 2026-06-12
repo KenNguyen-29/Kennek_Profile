@@ -9,28 +9,15 @@ export const profile = {
   shortIntro:
     "Young developer building modern web apps, exploring AI, and always leveling up — one commit at a time.",
   tagline: "Gen Z · Builder · Lifelong Learner",
+  status: "Open to work",
   email: "huannek2006@gmail.com",
   phone: "0899109179",
   location: "Long Biên, Hà Nội",
   github: "https://github.com/Ken290906",
   linkedin: "",
   cvDownloadUrl: "/cv/nguyen-huu-huan-cv.pdf",
-  avatar: "/avatar.svg",
+  avatar: "/avatar.jpg",
 };
-
-export const playerMeta = {
-  level: 21,
-  class: "Fullstack Engineer",
-  status: "Online — Open to work",
-  id: "NH-2026",
-};
-
-export const playerStats = [
-  { id: "backend", label: "Backend", value: 88, color: "violet" as const },
-  { id: "frontend", label: "Frontend", value: 82, color: "cyan" as const },
-  { id: "ai", label: "AI / LLM", value: 74, color: "coral" as const },
-  { id: "team", label: "Teamwork", value: 90, color: "violet" as const },
-];
 
 export const about = {
   summary:
@@ -320,23 +307,23 @@ export const education = [
 ];
 
 export const dockNav = [
-  { id: "about", label: "About", href: "#about", icon: "User" as const },
-  { id: "skills", label: "Skills", href: "#skills", icon: "Cpu" as const },
-  { id: "missions", label: "Missions", href: "#projects", icon: "Crosshair" as const },
-  { id: "quests", label: "Quests", href: "#beyond-coding", icon: "Gamepad2" as const },
-  { id: "roadmap", label: "Tree", href: "#roadmap", icon: "GitBranch" as const },
-  { id: "contact", label: "Comms", href: "#contact", icon: "Radio" as const },
+  { id: "about", label: "Giới thiệu", href: "#about", icon: "User" as const },
+  { id: "skills", label: "Kỹ năng", href: "#skills", icon: "Cpu" as const },
+  { id: "projects", label: "Dự án", href: "#projects", icon: "Crosshair" as const },
+  { id: "life", label: "Sở thích", href: "#beyond-coding", icon: "Gamepad2" as const },
+  { id: "roadmap", label: "Lộ trình", href: "#roadmap", icon: "GitBranch" as const },
+  { id: "contact", label: "Liên hệ", href: "#contact", icon: "Radio" as const },
 ];
 
 export const commandLinks = [
-  { label: "Character — About", href: "#about" },
-  { label: "Skill Loadout", href: "#skills" },
-  { label: "Work History", href: "#experience" },
-  { label: "Missions — Projects", href: "#projects" },
-  { label: "Side Quests — Life", href: "#beyond-coding" },
-  { label: "Growth Log", href: "#growth" },
-  { label: "Skill Tree — Roadmap", href: "#roadmap" },
-  { label: "Achievements", href: "#awards" },
-  { label: "Education", href: "#education" },
-  { label: "Open Comms", href: "#contact" },
+  { label: "Giới thiệu", href: "#about" },
+  { label: "Kỹ năng", href: "#skills" },
+  { label: "Kinh nghiệm", href: "#experience" },
+  { label: "Dự án", href: "#projects" },
+  { label: "Ngoài coding", href: "#beyond-coding" },
+  { label: "Đang phát triển", href: "#growth" },
+  { label: "Lộ trình", href: "#roadmap" },
+  { label: "Giải thưởng", href: "#awards" },
+  { label: "Học vấn", href: "#education" },
+  { label: "Liên hệ", href: "#contact" },
 ];

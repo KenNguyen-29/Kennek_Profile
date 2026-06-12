@@ -3,31 +3,35 @@
 import { skillGroups } from "@/data/profile";
 import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
+import { StaggerGroup, StaggerItem } from "./motion/Stagger";
+import HoverCard from "./motion/HoverCard";
 
 export default function Skills() {
   return (
     <SectionReveal id="skills">
       <HudHeading
-        code="LOAD"
-        title="Skill Loadout"
-        subtitle="Equipped tools & technologies."
+        code="SKILLS"
+        title="Kỹ năng & công nghệ"
+        subtitle="Stack công cụ thường dùng."
       />
-      <div className="mt-8 space-y-4">
+      <StaggerGroup className="mt-8 space-y-3">
         {skillGroups.map((group) => (
-          <div key={group.category} className="hud-panel p-4 sm:p-5">
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.25em] text-violet-glow">
-              {group.category}
-            </h3>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <span key={skill} className="chip-violet">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+          <StaggerItem key={group.category}>
+            <HoverCard className="hud-panel p-4 sm:p-5">
+              <h3 className="text-xs font-medium uppercase tracking-wider text-emerald-glow">
+                {group.category}
+              </h3>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span key={skill} className="chip-accent">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </HoverCard>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGroup>
     </SectionReveal>
   );
 }

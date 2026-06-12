@@ -3,22 +3,46 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Download, MapPin } from "lucide-react";
-import { playerMeta, playerStats, profile } from "@/data/profile";
+import { motion } from "framer-motion";
+import { profile } from "@/data/profile";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
-import StatBar from "./StatBar";
+import TextReveal from "@/components/motion/TextReveal";
+import ScrollIndicator from "@/components/ScrollIndicator";
+import { easeOut, scaleIn, slideInLeft, slideInRight, springSoft } from "@/lib/motion";
+
+const chipVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 12 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { delay: 0.55 + i * 0.08, duration: 0.5, ease: easeOut },
+  }),
+};
 
 export default function Hero() {
   const [avatarError, setAvatarError] = useState(false);
 
   return (
-    <section className="relative min-h-[100dvh] border-b border-void-border">
-      <div className="shell grid min-h-[100dvh] grid-cols-1 items-center gap-10 py-10 lg:grid-cols-12 lg:gap-8 lg:py-16">
-        {/* Character portrait */}
-        <div className="relative lg:col-span-5">
-          <div className="hud-panel p-1">
-            <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden bg-void-deep lg:max-w-none">
+    <section className="relative min-h-[100dvh] border-b border-void-border/60">
+      <div className="shell grid min-h-[100dvh] grid-cols-1 items-center gap-10 py-10 lg:grid-cols-12 lg:gap-10 lg:py-16">
+        <motion.div
+          className="relative lg:col-span-5"
+          initial="hidden"
+          animate="visible"
+          variants={slideInLeft}
+        >
+          <motion.div
+            className="hud-panel overflow-hidden p-1.5"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.4, ease: easeOut }}
+          >
+            <motion.div
+              className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-lg bg-void-deep lg:max-w-none"
+              variants={scaleIn}
+            >
               {avatarError ? (
-                <div className="flex h-full items-center justify-center font-display text-7xl font-bold text-violet/30">
+                <div className="flex h-full items-center justify-center font-display text-7xl font-bold text-emerald/20">
                   NH
                 </div>
               ) : (
@@ -32,86 +56,121 @@ export default function Hero() {
                   onError={() => setAvatarError(true)}
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-void-deep via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 animate-pulse-dot rounded-full bg-emerald-400" />
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
-                    {playerMeta.status}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-            <span>ID: {playerMeta.id}</span>
-            <span className="flex items-center gap-1 text-zinc-500">
-              <MapPin size={10} />
+              <div className="absolute inset-0 bg-gradient-to-t from-void-deep/90 via-transparent to-transparent" />
+            </motion.div>
+          </motion.div>
+          <motion.div
+            className="mt-4 flex items-center justify-between text-sm text-zinc-500"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6, ease: easeOut }}
+          >
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-emerald-glow" />
+              <span className="text-emerald-glow">{profile.status}</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin size={14} className="text-emerald/60" />
               {profile.location}
             </span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Character sheet */}
-        <div className="lg:col-span-7">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet-glow">
-            {"// Player Profile"}
-          </p>
+        <motion.div
+          className="lg:col-span-7"
+          initial="hidden"
+          animate="visible"
+          variants={slideInRight}
+        >
+          <motion.p
+            className="text-sm font-medium text-emerald-glow"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.6, ease: easeOut }}
+          >
+            {profile.role}
+          </motion.p>
 
-          <h1 className="mt-3 font-display text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.05] text-white">
-            {profile.name}
-          </h1>
+          <TextReveal
+            text={profile.name}
+            className="mt-2 font-display text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.08] text-white"
+            delay={0.25}
+          />
 
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <span className="chip-violet">LV.{playerMeta.level}</span>
-            <span className="chip">{playerMeta.class}</span>
-            {profile.typingRoles.map((r) => (
-              <span key={r} className="chip">
+          <motion.p
+            className="mt-3 text-sm text-zinc-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.75, duration: 0.6 }}
+          >
+            {profile.tagline}
+          </motion.p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {profile.typingRoles.map((r, i) => (
+              <motion.span
+                key={r}
+                custom={i}
+                initial="hidden"
+                animate="visible"
+                variants={chipVariants}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="chip-accent cursor-default"
+              >
                 {r}
-              </span>
+              </motion.span>
             ))}
           </div>
 
-          <p className="mt-6 max-w-lg text-sm leading-relaxed text-zinc-500 sm:text-base">
+          <motion.p
+            className="mt-6 max-w-lg text-base leading-relaxed text-zinc-400"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.7, ease: easeOut }}
+          >
             {profile.shortIntro}
-          </p>
+          </motion.p>
 
-          <div className="mt-8 hud-panel p-5 sm:p-6">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600">
-              Attribute Stats
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {playerStats.map((stat) => (
-                <StatBar
-                  key={stat.id}
-                  label={stat.label}
-                  value={stat.value}
-                  color={stat.color}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <button
-              onClick={() => smoothScrollToElement("#projects", { duration: 900, offset: 80 })}
+          <motion.div
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.05, ...springSoft }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() =>
+                smoothScrollToElement("#projects", { duration: 900, offset: 80 })
+              }
               className="btn-hud"
             >
-              View Missions
-            </button>
-            <button
-              onClick={() => smoothScrollToElement("#contact", { duration: 900, offset: 80 })}
+              Xem dự án
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() =>
+                smoothScrollToElement("#contact", { duration: 900, offset: 80 })
+              }
               className="btn-ghost-hud"
             >
-              Open Comms
-            </button>
-            <a href={profile.cvDownloadUrl} className="btn-ghost-hud" download>
-              <Download size={14} />
-              CV File
-            </a>
-          </div>
-        </div>
+              Liên hệ
+            </motion.button>
+            <motion.a
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              href={profile.cvDownloadUrl}
+              className="btn-ghost-hud"
+              download
+            >
+              <Download size={16} />
+              Tải CV
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </div>
+      <ScrollIndicator />
     </section>
   );
 }

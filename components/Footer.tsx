@@ -1,18 +1,26 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { profile } from "@/data/profile";
+import { fadeUp, viewport } from "@/lib/motion";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-void-border py-8">
+    <motion.footer
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+      variants={fadeUp}
+      className="border-t border-void-border/60 py-8"
+    >
       <div className="shell flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-600">
-          © {year} {profile.name} · Player ID {profile.name.split(" ").map((w) => w[0]).join("")}
+        <p className="text-sm text-zinc-600">
+          © {year} {profile.name}
         </p>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-600">
-          Built with Next.js · HUD v2
-        </p>
+        <p className="text-sm text-zinc-600">Built with Next.js</p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

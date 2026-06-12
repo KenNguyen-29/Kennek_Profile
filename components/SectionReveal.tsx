@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { easeOut, viewport } from "@/lib/motion";
 
 interface SectionRevealProps {
   id?: string;
@@ -12,10 +13,10 @@ export default function SectionReveal({ id, children }: SectionRevealProps) {
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px", amount: 0.08 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={viewport}
+      transition={{ duration: 0.5, ease: easeOut }}
       className="zone border-t border-void-border/80"
     >
       <div className="shell">{children}</div>
