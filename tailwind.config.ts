@@ -9,28 +9,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: {
-          950: "#020617",
-          900: "#07120C",
-          800: "#0a1a12",
-          700: "#14261c",
+        void: {
+          DEFAULT: "#08080f",
+          deep: "#050508",
+          panel: "#0f0f18",
+          border: "#1e1e2e",
         },
-        accent: {
-          DEFAULT: "#22C55E",
-          light: "#6EE7B7",
-          glow: "#10B981",
-          mint: "#6EE7B7",
-          lime: "#A3E635",
+        violet: {
+          glow: "#a78bfa",
+          DEFAULT: "#7c3aed",
+        },
+        coral: {
+          DEFAULT: "#f97316",
+          soft: "#fb7185",
+        },
+        hud: {
+          cyan: "#22d3ee",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        mono: ["var(--font-ibm-plex)", "monospace"],
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "hero-glow":
-          "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34,197,94,0.12), transparent)",
+      maxWidth: {
+        shell: "72rem",
+      },
+      boxShadow: {
+        hud: "0 0 0 1px rgba(167,139,250,0.15), 0 8px 32px rgba(0,0,0,0.5)",
+        dock: "0 -4px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)",
       },
     },
   },

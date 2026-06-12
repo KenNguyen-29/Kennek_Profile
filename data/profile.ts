@@ -15,8 +15,22 @@ export const profile = {
   github: "https://github.com/Ken290906",
   linkedin: "",
   cvDownloadUrl: "/cv/nguyen-huu-huan-cv.pdf",
-  avatar: "/avatar.jpg",
+  avatar: "/avatar.svg",
 };
+
+export const playerMeta = {
+  level: 21,
+  class: "Fullstack Engineer",
+  status: "Online — Open to work",
+  id: "NH-2026",
+};
+
+export const playerStats = [
+  { id: "backend", label: "Backend", value: 88, color: "violet" as const },
+  { id: "frontend", label: "Frontend", value: 82, color: "cyan" as const },
+  { id: "ai", label: "AI / LLM", value: 74, color: "coral" as const },
+  { id: "team", label: "Teamwork", value: 90, color: "violet" as const },
+];
 
 export const about = {
   summary:
@@ -75,22 +89,10 @@ export const strengths = [
 ];
 
 export const growthMindset = [
-  {
-    id: "analytical",
-    text: "Continuously improving analytical thinking",
-  },
-  {
-    id: "problem-solving",
-    text: "Working on deeper problem-solving approaches",
-  },
-  {
-    id: "attention-detail",
-    text: "Paying more attention to detail during final reviews",
-  },
-  {
-    id: "feedback",
-    text: "Always learning from feedback and real projects",
-  },
+  { id: "analytical", text: "Continuously improving analytical thinking" },
+  { id: "problem-solving", text: "Working on deeper problem-solving approaches" },
+  { id: "attention-detail", text: "Paying more attention to detail during final reviews" },
+  { id: "feedback", text: "Always learning from feedback and real projects" },
 ];
 
 export const interests = [
@@ -125,15 +127,13 @@ export const favoriteGames = [
     id: "valorant",
     name: "Valorant",
     rank: "Diamond Rank",
-    accent: "from-red-500/20 to-rose-600/10",
-    border: "hover:border-red-400/30",
+    tier: "S",
   },
   {
     id: "pubg",
     name: "PUBG Mobile",
     rank: "Conqueror / Bậc Thầy Siêu Việt",
-    accent: "from-amber-500/20 to-orange-600/10",
-    border: "hover:border-amber-400/30",
+    tier: "SS",
   },
 ];
 
@@ -141,22 +141,13 @@ export const roadmap = [
   {
     year: "2026",
     title: "Backend & Infrastructure",
-    items: [
-      "Advanced Backend Engineering",
-      "System Design",
-      "Docker & DevOps",
-    ],
+    items: ["Advanced Backend Engineering", "System Design", "Docker & DevOps"],
     status: "in-progress" as const,
   },
   {
     year: "2027",
     title: "AI Engineering",
-    items: [
-      "AI Engineering",
-      "LLM Applications",
-      "RAG Systems",
-      "AI Agents",
-    ],
+    items: ["AI Engineering", "LLM Applications", "RAG Systems", "AI Agents"],
     status: "upcoming" as const,
   },
   {
@@ -210,28 +201,28 @@ export const experiences = [
     id: "techwave-fresher",
     company: "Techwave Solutions Company",
     role: "Fresher Fullstack Developer",
-    period: "2024 – Present",
+    period: "09/2025 - 06/2026",
     location: "Hà Nội, Vietnam",
     description:
-      "Developed and maintained fullstack web applications using React, Next.js, and NestJS. Collaborated with cross-functional teams to deliver CMS and e-commerce solutions. Implemented RESTful APIs, database schemas, and responsive UI components.",
+      "Developed and maintained fullstack web applications using React, Next.js, and NestJS. Collaborated with cross-functional teams to deliver CMS and e-commerce solutions.",
   },
   {
     id: "remote-contract",
     company: "Remote Contract",
     role: "Fullstack Developer",
-    period: "2024",
+    period: "07/2025 - 11/2026",
     location: "Remote",
     description:
-      "Built AI-powered chat systems and customer support platforms. Integrated LLM APIs, designed real-time messaging interfaces, and deployed containerized services with Docker.",
+      "Built AI-powered chat systems and customer support platforms. Integrated LLM APIs and deployed containerized services with Docker.",
   },
   {
     id: "ecoit-intern",
     company: "EcoIT Company",
     role: "Intern Fullstack Developer",
-    period: "2023",
+    period: "02/2025 - 06/2025",
     location: "Hà Nội, Vietnam",
     description:
-      "Assisted in developing internal tools and web applications. Gained practical experience with Spring Boot, MySQL, and frontend frameworks. Participated in code reviews and agile sprint ceremonies.",
+      "Assisted in developing internal tools with Spring Boot and MySQL. Participated in code reviews and agile sprint ceremonies.",
   },
 ];
 
@@ -240,56 +231,61 @@ export const projects = [
     id: "kennek-ai-chat",
     title: "Kennek AI Chat System",
     description:
-      "An intelligent chat platform powered by AI for seamless conversational experiences. Features real-time messaging, context-aware responses, and a modern React-based interface.",
+      "Intelligent chat platform with real-time messaging, context-aware AI responses, and a modern React interface.",
     role: "Fullstack Developer",
     techStack: ["Next.js", "React", "NestJS", "PostgreSQL", "Docker"],
     github: "",
     demo: "",
     featured: true,
+    difficulty: 4,
   },
   {
     id: "mobileworld",
     title: "MobileWorld Phone Sales Software",
     description:
-      "A comprehensive phone sales management system with inventory tracking, order processing, and sales analytics for retail mobile phone stores.",
+      "Phone sales management with inventory tracking, order processing, and sales analytics for retail stores.",
     role: "Fullstack Developer",
     techStack: ["Vue", "Spring Boot", "MySQL", "REST API"],
     github: "",
     demo: "",
     featured: true,
+    difficulty: 3,
   },
   {
     id: "techwave-cms",
     title: "Techwave CMS",
     description:
-      "A content management system for managing articles, media, and website content with role-based access control and an intuitive admin dashboard.",
+      "Content management with role-based access control and an intuitive admin dashboard.",
     role: "Fullstack Developer",
     techStack: ["Next.js", "NestJS", "PostgreSQL", "Tailwind CSS"],
     github: "",
     demo: "",
     featured: false,
+    difficulty: 3,
   },
   {
     id: "techwave-ecommerce",
     title: "Techwave Ecommerce",
     description:
-      "A full-featured e-commerce platform with product catalog, shopping cart, order management, and payment integration for online retail.",
+      "E-commerce platform with product catalog, cart, order management, and payment integration.",
     role: "Fullstack Developer",
     techStack: ["React", "NodeJS", "ExpressJS", "MongoDB"],
     github: "",
     demo: "",
     featured: false,
+    difficulty: 3,
   },
   {
     id: "ai-customer-support",
-    title: "AI-powered Customer Support Chat System",
+    title: "AI Customer Support Chat",
     description:
-      "An automated customer support solution using AI to handle inquiries, route tickets, and provide instant responses with human handoff capabilities.",
+      "Automated support with AI inquiries, ticket routing, and human handoff capabilities.",
     role: "Fullstack Developer",
     techStack: ["Next.js", "NestJS", "OpenAI API", "PostgreSQL", "Docker"],
     github: "",
     demo: "",
     featured: true,
+    difficulty: 4,
   },
 ];
 
@@ -300,7 +296,7 @@ export const awards = [
     event: "Hackathon Frontend Master 2024",
     year: "2024",
     description:
-      "Recognized among the top 20 best contestants for outstanding frontend development skills and creative problem-solving.",
+      "Recognized among the top 20 for outstanding frontend skills and creative problem-solving.",
   },
 ];
 
@@ -309,7 +305,7 @@ export const education = [
     id: "utt",
     institution: "University of Transport Technology",
     degree: "Information Technology",
-    period: "2022 – Present",
+    period: "03/2026 – Present",
     gpa: "",
     description: "Bachelor's degree in Information Technology.",
   },
@@ -317,23 +313,30 @@ export const education = [
     id: "fpt-poly",
     institution: "FPT Polytechnic College",
     degree: "Software Development",
-    period: "2020 – 2022",
+    period: "09/2022 – 09/2025",
     gpa: "3.3/4",
     description: "Associate degree in Software Development with strong academic performance.",
   },
 ];
 
-export const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Roadmap", href: "#roadmap" },
-  { label: "Contact", href: "#contact" },
+export const dockNav = [
+  { id: "about", label: "About", href: "#about", icon: "User" as const },
+  { id: "skills", label: "Skills", href: "#skills", icon: "Cpu" as const },
+  { id: "missions", label: "Missions", href: "#projects", icon: "Crosshair" as const },
+  { id: "quests", label: "Quests", href: "#beyond-coding", icon: "Gamepad2" as const },
+  { id: "roadmap", label: "Tree", href: "#roadmap", icon: "GitBranch" as const },
+  { id: "contact", label: "Comms", href: "#contact", icon: "Radio" as const },
 ];
 
-export const floatingBadges = [
-  "Gen Z Dev",
-  "AI Curious",
-  "Backend Strong",
-  "Always Learning",
+export const commandLinks = [
+  { label: "Character — About", href: "#about" },
+  { label: "Skill Loadout", href: "#skills" },
+  { label: "Work History", href: "#experience" },
+  { label: "Missions — Projects", href: "#projects" },
+  { label: "Side Quests — Life", href: "#beyond-coding" },
+  { label: "Growth Log", href: "#growth" },
+  { label: "Skill Tree — Roadmap", href: "#roadmap" },
+  { label: "Achievements", href: "#awards" },
+  { label: "Education", href: "#education" },
+  { label: "Open Comms", href: "#contact" },
 ];

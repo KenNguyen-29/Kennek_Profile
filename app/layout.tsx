@@ -1,65 +1,38 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-inter",
+const outfit = Outfit({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const ibmPlex = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Nguyễn Hữu Huân — Fullstack Developer",
   description:
-    "Portfolio of Nguyễn Hữu Huân, a Fullstack Developer specializing in Next.js, React, Vue, NestJS, Spring Boot, and modern web technologies. Based in Hà Nội, Vietnam.",
-  keywords: [
-    "Nguyễn Hữu Huân",
-    "Fullstack Developer",
-    "Next.js",
-    "React",
-    "NestJS",
-    "Spring Boot",
-    "Portfolio",
-    "Web Developer",
-    "Vietnam",
-  ],
-  authors: [{ name: "Nguyễn Hữu Huân" }],
-  creator: "Nguyễn Hữu Huân",
+    "Portfolio of Nguyễn Hữu Huân, Fullstack Developer exploring AI engineering. Next.js, NestJS, Spring Boot.",
   openGraph: {
+    title: "Nguyễn Hữu Huân — Fullstack Developer",
+    description: "Developer character sheet & project missions.",
     type: "website",
-    locale: "vi_VN",
-    title: "Nguyễn Hữu Huân — Fullstack Developer",
-    description:
-      "Fullstack Developer with experience in Next.js, React, Vue, NestJS, Spring Boot, Docker, and PostgreSQL/MySQL.",
-    siteName: "Nguyễn Hữu Huân Portfolio",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Nguyễn Hữu Huân — Fullstack Developer",
-    description:
-      "Portfolio showcasing fullstack development projects and experience.",
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="vi">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} min-w-0 font-sans`}
+        className={`${outfit.variable} ${ibmPlex.variable} min-w-0 bg-void font-sans text-zinc-300`}
       >
         {children}
       </body>

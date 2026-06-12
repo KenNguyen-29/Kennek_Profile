@@ -1,5 +1,6 @@
 import BackgroundEffects from "@/components/BackgroundEffects";
-import Navbar from "@/components/Navbar";
+import CommandPalette from "@/components/CommandPalette";
+import DockNav from "@/components/DockNav";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Strengths from "@/components/Strengths";
@@ -18,9 +19,9 @@ export default function Home() {
   return (
     <>
       <BackgroundEffects />
+      <CommandPalette />
       <div className="relative z-10">
-        <Navbar />
-        <main className="relative min-w-0">
+        <main className="min-w-0">
           <Hero />
           <About />
           <Strengths />
@@ -36,6 +37,7 @@ export default function Home() {
         </main>
         <Footer />
       </div>
+      <DockNav />
     </>
   );
 }

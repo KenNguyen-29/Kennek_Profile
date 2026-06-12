@@ -1,68 +1,85 @@
 "use client";
 
-import { ExternalLink, Github, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/profile";
-import SectionHeading from "./SectionHeading";
+import HudHeading from "./HudHeading";
 import SectionReveal from "./SectionReveal";
+
+function DifficultyBar({ level }: { level: number }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">
+        Diff
+      </span>
+      <div className="flex gap-0.5">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className={`h-2 w-3 ${
+              i < level ? "bg-coral" : "bg-void-deep"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Projects() {
   return (
     <SectionReveal id="projects">
-      <div className="section-container min-w-0">
-        <SectionHeading
-          label="Projects"
-          title="Highlight projects"
-          description="Selected work showcasing fullstack development capabilities."
-          align="center"
-        />
-
-        <div className="mt-12 grid min-w-0 grid-cols-1 gap-5 sm:mt-16 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <article
-              key={project.id}
-              className="glass-card-hover group flex min-w-0 flex-col p-5 transition-all duration-300 hover:shadow-emerald-500/10 sm:p-6 md:p-7 lg:p-8"
-            >
-              <div className="mb-4 flex min-w-0 items-start justify-between gap-3">
-                <h3 className="min-w-0 break-words font-display text-lg font-semibold text-white transition-colors group-hover:text-emerald-300 sm:text-xl">
-                  {project.title}
-                </h3>
+      <HudHeading
+        code="MSN"
+        title="Active Missions"
+        subtitle="Real projects shipped & in progress."
+      />
+      <div className="mt-8 space-y-4">
+        {projects.map((project, i) => (
+          <article
+            key={project.id}
+            className="hud-panel group p-5 transition-colors hover:border-coral/30 sm:p-6"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex items-start gap-4">
+                <span className="font-mono text-xs text-violet-glow">
+                  M-{String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-white sm:text-xl">
+                    {project.title}
+                  </h3>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+                    Role: {project.role}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
                 {project.featured && (
-                  <span className="flex shrink-0 items-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">
-                    <Star size={10} fill="currentColor" />
-                    Featured
-                  </span>
+                  <span className="chip border-coral/40 text-coral">Featured</span>
                 )}
+                <DifficultyBar level={project.difficulty} />
               </div>
-
-              <p className="mb-2 text-sm font-medium uppercase tracking-wider text-slate-500">
-                {project.role}
-              </p>
-
-              <p className="mb-5 flex-1 text-sm leading-relaxed text-slate-400 sm:text-base">
-                {project.description}
-              </p>
-
-              <div className="mb-5 flex min-w-0 flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="max-w-full break-words rounded-md border border-emerald-400/10 bg-emerald-400/10 px-2.5 py-1.5 text-sm font-medium text-emerald-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap">
+            </div>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-500">
+              {project.description}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span key={tech} className="chip">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            {(project.github || project.demo) && (
+              <div className="mt-5 flex gap-4">
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-secondary !w-full sm:!w-auto"
+                    className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-zinc-500 hover:text-violet-glow"
                   >
-                    <Github size={16} />
-                    GitHub
+                    GitHub <ArrowUpRight size={12} />
                   </a>
                 )}
                 {project.demo && (
@@ -70,21 +87,20 @@ export default function Projects() {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary !w-full sm:!w-auto"
+                    className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-hud-cyan"
                   >
-                    <ExternalLink size={16} />
-                    Live Demo
+                    Live <ArrowUpRight size={12} />
                   </a>
                 )}
-                {!project.github && !project.demo && (
-                  <span className="text-sm italic text-slate-500">
-                    Private / In development
-                  </span>
-                )}
               </div>
-            </article>
-          ))}
-        </div>
+            )}
+            {!project.github && !project.demo && (
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+                Status: Private / In development
+              </p>
+            )}
+          </article>
+        ))}
       </div>
     </SectionReveal>
   );
