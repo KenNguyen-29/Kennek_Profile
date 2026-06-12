@@ -60,9 +60,7 @@ export default function DockNav() {
           return (
             <motion.button
               key={item.id}
-              onClick={() =>
-                smoothScrollToElement(item.href, { duration: 900, offset: 80 })
-              }
+              onClick={() => smoothScrollToElement(item.href)}
               whileHover={{ y: -3, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`relative flex min-h-[44px] flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 transition-colors sm:px-2 ${

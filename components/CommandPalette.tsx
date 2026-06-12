@@ -31,7 +31,7 @@ export default function CommandPalette() {
   const go = (href: string) => {
     setOpen(false);
     setQuery("");
-    smoothScrollToElement(href, { duration: 900, offset: 80 });
+    smoothScrollToElement(href);
   };
 
   return (

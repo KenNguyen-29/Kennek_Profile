@@ -5,16 +5,21 @@
 @layer base {
   html {
     overflow-x: clip;
-    height: 100%;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
   }
 
   body {
     @apply min-w-0 bg-void text-zinc-300 antialiased;
     overflow-x: clip;
-    overflow-y: auto;
     min-height: 100%;
-    touch-action: pan-y;
-    -webkit-overflow-scrolling: touch;
     padding-bottom: 5.5rem;
   }
 

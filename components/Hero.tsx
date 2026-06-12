@@ -9,6 +9,7 @@ import { useI18n } from "@/lib/LanguageProvider";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
 import TextReveal from "@/components/motion/TextReveal";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import CvDownloadButton from "@/components/CvDownloadButton";
 import { easeOut, scaleIn, slideInLeft, slideInRight, springSoft } from "@/lib/motion";
 
 const chipVariants = {
@@ -142,9 +143,7 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() =>
-                smoothScrollToElement("#projects", { duration: 900, offset: 80 })
-              }
+              onClick={() => smoothScrollToElement("#projects")}
               className="btn-hud"
             >
               {t.ui.hero.viewProjects}
@@ -152,13 +151,12 @@ export default function Hero() {
             <motion.button
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() =>
-                smoothScrollToElement("#contact", { duration: 900, offset: 80 })
-              }
+              onClick={() => smoothScrollToElement("#contact")}
               className="btn-ghost-hud"
             >
               {t.ui.hero.contact}
             </motion.button>
+            <CvDownloadButton />
           </motion.div>
         </motion.div>
       </div>
