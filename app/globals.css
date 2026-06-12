@@ -4,11 +4,18 @@
 
 @layer base {
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
+    height: 100%;
   }
 
   body {
-    @apply min-w-0 overflow-x-hidden bg-transparent text-base text-slate-100 antialiased;
+    @apply min-w-0 bg-transparent text-base text-slate-100 antialiased;
+    overflow-x: clip;
+    overflow-y: auto;
+    min-height: 100%;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: auto;
   }
 
   img,
@@ -186,38 +193,31 @@
 @layer utilities {
   .animate-aurora {
     animation: aurora 20s ease-in-out infinite;
-    will-change: transform, opacity;
   }
 
   .animate-float {
     animation: float 16s ease-in-out infinite;
-    will-change: transform;
   }
 
   .animate-float-delayed {
     animation: float 20s ease-in-out infinite;
     animation-delay: -7s;
-    will-change: transform;
   }
 
   .animate-gradient-x {
     animation: gradient-x 10s ease-in-out infinite;
-    will-change: transform, opacity;
   }
 
   .animate-pulse-slow {
     animation: pulse-slow 12s ease-in-out infinite;
-    will-change: transform, opacity;
   }
 
   .animate-avatar-glow {
     animation: avatar-glow 7s ease-in-out infinite;
-    will-change: transform, opacity;
   }
 
   .animate-particle-float {
     animation: particle-float ease-in-out infinite;
-    will-change: transform, opacity;
   }
 
   .bg-noise {
@@ -236,6 +236,5 @@
   .animate-avatar-glow,
   .animate-particle-float {
     animation: none !important;
-    will-change: auto;
   }
 }

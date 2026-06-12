@@ -20,7 +20,7 @@ export default function Home() {
       <BackgroundEffects />
       <div className="relative z-10">
         <Navbar />
-        <main className="min-w-0 overflow-x-hidden">
+        <main className="relative min-w-0">
           <Hero />
           <About />
           <Strengths />

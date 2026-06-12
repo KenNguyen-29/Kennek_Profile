@@ -57,9 +57,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className="scroll-smooth">
+    <html lang="vi">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} min-w-0 overflow-x-hidden font-sans`}
+        className={`${inter.variable} ${spaceGrotesk.variable} min-w-0 font-sans`}
       >
         {children}
       </body>

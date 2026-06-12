@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 const PARTICLES = Array.from({ length: 28 }, (_, i) => ({
   id: i,
   left: `${((i * 37 + 11) % 97) + 1}%`,
@@ -20,33 +16,6 @@ const GRADIENT_LINES = [
 ];
 
 export default function BackgroundEffects() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    let rafId = 0;
-
-    const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        setScrollY(window.scrollY);
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafId);
-    };
-  }, []);
-
-  const blobY1 = scrollY * 0.06;
-  const blobY2 = scrollY * 0.04;
-  const blobY3 = scrollY * 0.08;
-  const particleY = scrollY * 0.025;
-  const auroraY = scrollY * 0.02;
-
   return (
     <div
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
@@ -55,43 +24,15 @@ export default function BackgroundEffects() {
       <div className="absolute inset-0 bg-[#020617]" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#07120C]/90 via-[#020617]/50 to-[#07120C]/80" />
 
-      <div
-        className="absolute inset-[-10%]"
-        style={{ transform: `translate3d(0, ${auroraY}px, 0)` }}
-      >
-        <div className="absolute inset-0 animate-aurora bg-[radial-gradient(circle_at_25%_15%,rgba(34,197,94,0.18),transparent_40%),radial-gradient(circle_at_75%_25%,rgba(16,185,129,0.14),transparent_36%),radial-gradient(circle_at_50%_70%,rgba(110,231,183,0.10),transparent_38%),radial-gradient(circle_at_15%_85%,rgba(34,211,238,0.06),transparent_32%)]" />
-      </div>
+      <div className="absolute inset-[-10%] animate-aurora bg-[radial-gradient(circle_at_25%_15%,rgba(34,197,94,0.18),transparent_40%),radial-gradient(circle_at_75%_25%,rgba(16,185,129,0.14),transparent_36%),radial-gradient(circle_at_50%_70%,rgba(110,231,183,0.10),transparent_38%),radial-gradient(circle_at_15%_85%,rgba(34,211,238,0.06),transparent_32%)]" />
 
+      <div className="absolute -left-20 -top-32 h-72 w-72 rounded-full bg-green-500/15 blur-3xl animate-float sm:h-96 sm:w-96" />
+      <div className="absolute right-0 top-[20%] h-80 w-80 rounded-full bg-emerald-400/12 blur-3xl animate-float-delayed sm:right-16 sm:h-[28rem] sm:w-[28rem]" />
+      <div className="absolute bottom-[10%] left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl animate-pulse-slow sm:bottom-10 sm:h-96 sm:w-96" />
       <div
-        className="absolute -left-20 -top-32"
-        style={{ transform: `translate3d(0, ${blobY1}px, 0)` }}
-      >
-        <div className="h-72 w-72 rounded-full bg-green-500/15 blur-3xl animate-float sm:h-96 sm:w-96" />
-      </div>
-
-      <div
-        className="absolute right-0 top-[20%] sm:right-16"
-        style={{ transform: `translate3d(0, ${blobY2}px, 0)` }}
-      >
-        <div className="h-80 w-80 rounded-full bg-emerald-400/12 blur-3xl animate-float-delayed sm:h-[28rem] sm:w-[28rem]" />
-      </div>
-
-      <div
-        className="absolute bottom-[10%] left-1/2"
-        style={{ transform: `translate3d(-50%, ${blobY3}px, 0)` }}
-      >
-        <div className="h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl animate-pulse-slow sm:h-96 sm:w-96" />
-      </div>
-
-      <div
-        className="absolute left-[15%] top-[55%]"
-        style={{ transform: `translate3d(0, ${blobY2 * 0.7}px, 0)` }}
-      >
-        <div
-          className="h-64 w-64 rounded-full bg-lime-400/8 blur-3xl animate-float sm:h-80 sm:w-80"
-          style={{ animationDelay: "-4s" }}
-        />
-      </div>
+        className="absolute left-[15%] top-[55%] h-64 w-64 rounded-full bg-lime-400/8 blur-3xl animate-float sm:h-80 sm:w-80"
+        style={{ animationDelay: "-4s" }}
+      />
 
       <div className="absolute left-1/2 top-[8%] h-64 w-[min(80vw,700px)] -translate-x-1/2 rounded-full bg-emerald-500/8 blur-3xl" />
       <div className="absolute right-[10%] top-[45%] h-48 w-48 rounded-full bg-green-400/6 blur-3xl animate-pulse-slow" />
@@ -105,15 +46,9 @@ export default function BackgroundEffects() {
         />
       ))}
 
-      <div
-        className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:48px_48px] sm:[background-size:64px_64px]"
-        style={{ transform: `translate3d(0, ${particleY}px, 0)` }}
-      />
+      <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:48px_48px] sm:[background-size:64px_64px]" />
 
-      <div
-        className="absolute inset-0"
-        style={{ transform: `translate3d(0, ${particleY}px, 0)` }}
-      >
+      <div className="absolute inset-0">
         {PARTICLES.map((p) => (
           <span
             key={p.id}

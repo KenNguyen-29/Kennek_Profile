@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
 import { floatingBadges, profile } from "@/data/profile";
 import { smoothScrollToElement } from "@/lib/smoothScroll";
@@ -20,22 +20,18 @@ function AvatarPlaceholder() {
 
 export default function Hero() {
   const [avatarError, setAvatarError] = useState(false);
-  const { scrollY } = useScroll();
-  const avatarParallaxY = useTransform(scrollY, [0, 600], [0, -50]);
-  const contentParallaxY = useTransform(scrollY, [0, 600], [0, -20]);
 
   const scrollTo = (id: string) => {
     smoothScrollToElement(id, { duration: 1050, offset: 80 });
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-transparent pt-16 sm:pt-20">
-      <div className="section-container relative z-10 flex min-h-[calc(100vh-4rem)] min-w-0 flex-col items-center justify-center gap-10 py-12 sm:min-h-[calc(100vh-5rem)] sm:gap-12 sm:py-16 md:flex-row md:items-center md:gap-10 md:py-16 lg:gap-16 xl:gap-20">
+    <section className="relative min-h-[100dvh] bg-transparent pt-16 sm:min-h-screen sm:pt-20">
+      <div className="section-container relative z-10 flex min-h-[calc(100dvh-4rem)] min-w-0 flex-col items-center justify-center gap-10 py-12 sm:min-h-[calc(100vh-5rem)] sm:gap-12 sm:py-16 md:flex-row md:items-center md:gap-10 md:py-16 lg:gap-16 xl:gap-20">
         <motion.div
-          style={{ y: contentParallaxY }}
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="min-w-0 flex-1 text-center md:text-left"
         >
           <motion.div
@@ -94,10 +90,9 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          style={{ y: avatarParallaxY }}
-          initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative w-full max-w-[280px] shrink-0 sm:max-w-none md:w-auto"
         >
           <div className="absolute inset-[-18%] rounded-full bg-[radial-gradient(circle,rgba(34,197,94,0.28)_0%,rgba(110,231,183,0.14)_38%,transparent_68%)] blur-2xl animate-avatar-glow" />

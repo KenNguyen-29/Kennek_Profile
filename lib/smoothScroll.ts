@@ -4,6 +4,31 @@ export function easeInOutCubic(t: number): number {
 
 let activeAnimation: number | null = null;
 
+export function cancelSmoothScroll(): void {
+  if (activeAnimation !== null) {
+    cancelAnimationFrame(activeAnimation);
+    activeAnimation = null;
+  }
+}
+
+function bindScrollCancelListeners(): void {
+  if (typeof window === "undefined") return;
+
+  const cancel = () => cancelSmoothScroll();
+
+  window.addEventListener("wheel", cancel, { passive: true });
+  window.addEventListener("touchstart", cancel, { passive: true });
+  window.addEventListener("keydown", (e) => {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(e.key)) {
+      cancel();
+    }
+  });
+}
+
+if (typeof window !== "undefined") {
+  bindScrollCancelListeners();
+}
+
 export function smoothScrollTo(
   targetY: number,
   duration = 1000,
@@ -11,10 +36,7 @@ export function smoothScrollTo(
 ): void {
   if (typeof window === "undefined") return;
 
-  if (activeAnimation !== null) {
-    cancelAnimationFrame(activeAnimation);
-    activeAnimation = null;
-  }
+  cancelSmoothScroll();
 
   const startY = window.scrollY;
   const distance = targetY - startY;
